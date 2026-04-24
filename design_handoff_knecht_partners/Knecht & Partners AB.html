@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Knecht & Partners AB</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+/* ── Reset & Base ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --teal: #2EC4B6;
+  --teal-alt: #4FD1C5;
+  --dark: #0B1120;
+  --dark2: #0F1A2E;
+  --serif: 'DM Serif Display', Georgia, serif;
+  --sans: 'Inter', system-ui, sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: linear-gradient(165deg, #0B1120 0%, #0F1A2E 40%, #0B1120 100%);
+  color: rgba(255,255,255,0.65);
+  font-family: var(--sans);
+  overflow-x: hidden;
+}
+
+::selection { background: var(--teal); color: var(--dark); }
+
+/* ── Background grid & noise ── */
+.bg-grid {
+  position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+.bg-glow {
+  position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden;
+}
+.bg-glow-1 {
+  position: absolute; top: 20%; left: 15%; width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(46,196,182,0.12) 0%, transparent 70%);
+  border-radius: 50%; filter: blur(60px);
+  animation: glowPulse 8s ease-in-out infinite;
+}
+.bg-glow-2 {
+  position: absolute; bottom: 20%; right: 10%; width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(79,209,197,0.08) 0%, transparent 70%);
+  border-radius: 50%; filter: blur(80px);
+  animation: glowPulse 8s ease-in-out 4s infinite;
+}
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.15); }
+}
+
+/* ── Navbar ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  transition: background 0.5s, box-shadow 0.5s;
+}
+nav.scrolled {
+  background: rgba(11,17,32,0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 1px 0 rgba(255,255,255,0.06);
+}
+.nav-inner {
+  max-width: 1200px; margin: 0 auto;
+  padding: 0 2rem;
+  height: 80px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-logo {
+  font-family: var(--serif);
+  font-size: 1.25rem;
+  color: #fff;
+  text-decoration: none;
+  letter-spacing: -0.01em;
+  display: flex; align-items: center; gap: 0.5rem;
+}
+.nav-logo-k {
+  width: 34px; height: 34px;
+  background: rgba(46,196,182,0.12);
+  border: 1px solid rgba(46,196,182,0.3);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem; color: var(--teal);
+  font-family: var(--serif);
+  font-weight: 700;
+}
+.nav-links {
+  display: flex; align-items: center; gap: 2.5rem;
+  list-style: none;
+}
+.nav-links a {
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: rgba(255,255,255,0.55);
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: #fff; }
+.nav-links a.active { color: var(--teal); }
+.nav-cta {
+  display: inline-flex; align-items: center;
+  padding: 0.5rem 1.25rem;
+  border-radius: 999px;
+  font-size: 0.875rem; font-weight: 500;
+  background: rgba(46,196,182,0.12);
+  color: var(--teal);
+  border: 1px solid rgba(46,196,182,0.3);
+  text-decoration: none;
+  transition: background 0.2s, border-color 0.2s;
+}
+.nav-cta:hover { background: rgba(46,196,182,0.22); border-color: rgba(46,196,182,0.5); }
+
+/* ── Main wrapper ── */
+main { position: relative; z-index: 1; }
+
+/* ── Hero ── */
+#hero {
+  min-height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  padding: 0 2rem;
+}
+.hero-inner {
+  max-width: 1200px; width: 100%; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 4rem; align-items: center;
+  padding: 100px 0 4rem;
+}
+.hero-text { }
+.hero-label {
+  font-size: 0.75rem; font-weight: 600; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--teal);
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  animation: slideUp 0.8s ease-out 0.1s forwards;
+}
+.hero-h1 {
+  font-family: var(--serif);
+  font-size: clamp(3rem, 5vw, 5rem);
+  color: #fff;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.75rem;
+  opacity: 0;
+  animation: slideUp 0.9s ease-out 0.25s forwards;
+}
+.hero-h1 em {
+  font-style: italic;
+  color: var(--teal);
+  display: block;
+}
+.hero-desc {
+  font-size: 1.1rem; line-height: 1.75;
+  color: rgba(255,255,255,0.45);
+  max-width: 420px; margin-bottom: 2.5rem;
+  opacity: 0;
+  animation: slideUp 0.9s ease-out 0.4s forwards;
+}
+.hero-btns {
+  display: flex; flex-wrap: wrap; gap: 1rem;
+  opacity: 0;
+  animation: slideUp 0.9s ease-out 0.55s forwards;
+}
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.875rem 1.75rem; border-radius: 999px;
+  background: var(--teal); color: var(--dark);
+  font-size: 0.9rem; font-weight: 600; text-decoration: none;
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+.btn-primary:hover {
+  background: var(--teal-alt);
+  transform: translateY(-1px) scale(1.02);
+  box-shadow: 0 0 30px rgba(46,196,182,0.35);
+}
+.btn-secondary {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.875rem 1.75rem; border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.2);
+  color: rgba(255,255,255,0.65);
+  font-size: 0.9rem; font-weight: 500; text-decoration: none;
+  transition: border-color 0.2s, color 0.2s;
+}
+.btn-secondary:hover { border-color: rgba(46,196,182,0.5); color: #fff; }
+
+/* Hero stats */
+.hero-stats {
+  display: flex; gap: 2.5rem; margin-top: 3.5rem;
+  opacity: 0;
+  animation: slideUp 0.9s ease-out 0.7s forwards;
+}
+.hero-stat-num {
+  font-family: var(--serif);
+  font-size: 2rem; color: #fff; line-height: 1;
+}
+.hero-stat-num span { color: var(--teal); }
+.hero-stat-label { font-size: 0.75rem; color: rgba(255,255,255,0.4); margin-top: 0.25rem; }
+
+/* ── GLASS CUBE ── */
+.hero-visual {
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0;
+  animation: cubeIn 1.2s ease-out 0.5s forwards;
+}
+@keyframes cubeIn {
+  from { opacity: 0; transform: scale(0.75) translateY(20px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.cube-scene {
+  perspective: 1100px;
+  width: 420px; height: 420px;
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+}
+.cube-scene::after {
+  content: '';
+  position: absolute; top: 50%; left: 50%;
+  width: 520px; height: 520px;
+  margin: -260px 0 0 -260px;
+  background: radial-gradient(ellipse, rgba(46,196,182,0.1) 0%, transparent 65%);
+  border-radius: 50%; filter: blur(50px); pointer-events: none;
+  animation: glowPulse 6s ease-in-out infinite;
+}
+
+.cube-wrap {
+  animation: floatCube 7s ease-in-out infinite;
+}
+@keyframes floatCube {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-14px); }
+}
+
+.cube {
+  position: relative;
+  width: 300px; height: 300px;
+  transform-style: preserve-3d;
+}
+
+.face {
+  position: absolute;
+  width: 100%; height: 100%;
+  border: 1.5px solid rgba(46,196,182,0.22);
+  border-radius: 10px;
+  background: linear-gradient(135deg,
+    rgba(46,196,182,0.06) 0%,
+    rgba(11,17,32,0.55) 50%,
+    rgba(46,196,182,0.08) 100%);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  overflow: hidden;
+}
+.face::before {
+  content: '';
+  position: absolute; top: 0; left: 10%; right: 10%; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(46,196,182,0.7) 50%, transparent);
+  box-shadow: 0 0 8px rgba(46,196,182,0.4);
+}
+.face::after {
+  content: '';
+  position: absolute; bottom: 0; left: 10%; right: 10%; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(46,196,182,0.4) 50%, transparent);
+}
+
+.face-front  { transform: translateZ(150px); }
+.face-back   { transform: rotateY(180deg) translateZ(150px); }
+.face-right  { transform: rotateY(90deg) translateZ(150px); border-color: rgba(46,196,182,0.3); }
+.face-left   { transform: rotateY(-90deg) translateZ(150px); border-color: rgba(46,196,182,0.3); }
+.face-top    { transform: rotateX(90deg) translateZ(150px); border-color: rgba(46,196,182,0.35);
+  background: linear-gradient(135deg, rgba(255,255,255,0.06), rgba(46,196,182,0.1), rgba(255,255,255,0.03)); }
+.face-bottom { transform: rotateX(-90deg) translateZ(150px); }
+
+.face-grid {
+  position: absolute; inset: 0;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 10px; padding: 18px;
+}
+.face-cell {
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 6px;
+  border-radius: 8px;
+  background: rgba(46,196,182,0.03);
+  border: 1px solid rgba(46,196,182,0.08);
+  color: rgba(46,196,182,0.65);
+  transition: background 0.3s;
+}
+.face-cell span {
+  font-size: 9px; font-weight: 600; letter-spacing: 0.1em;
+  text-transform: uppercase; color: rgba(46,196,182,0.55);
+}
+.face-cell svg { width: 26px; height: 26px; }
+
+.face-top-inner {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 6px;
+}
+.face-k {
+  font-family: var(--serif); font-size: 52px; color: rgba(46,196,182,0.55); line-height: 1;
+}
+.face-tag {
+  font-size: 9px; font-weight: 500; letter-spacing: 0.14em;
+  text-transform: uppercase; color: rgba(46,196,182,0.4);
+}
+
+.cube-core {
+  position: absolute; top: 50%; left: 50%;
+  width: 110px; height: 110px; margin: -55px 0 0 -55px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(46,196,182,0.35) 0%, transparent 70%);
+  animation: coreGlow 4s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes coreGlow {
+  0%, 100% { opacity: 0.3; transform: scale(0.8); }
+  50% { opacity: 0.9; transform: scale(1.3); }
+}
+
+/* ── Animations ── */
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(36px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Section base ── */
+section { padding: 5rem 2rem; position: relative; }
+.section-inner { max-width: 1200px; margin: 0 auto; }
+.divider { width: 100%; height: 1px; background: rgba(255,255,255,0.08); margin-bottom: 4rem; }
+.section-label {
+  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.15em;
+  text-transform: uppercase; color: var(--teal); margin-bottom: 1.25rem;
+  display: block;
+}
+
+/* ── Reveal ── */
+.reveal {
+  opacity: 0; transform: translateY(30px);
+  transition: opacity 0.75s ease-out, transform 0.75s ease-out;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* ── Profile ── */
+#profile .profile-grid {
+  display: grid; grid-template-columns: 1fr 1.5fr;
+  gap: 4rem; align-items: center;
+}
+.profile-img-wrap {
+  position: relative; max-width: 340px; margin: 0 auto; width: 100%;
+}
+.profile-img-glow {
+  position: absolute; inset: -20px;
+  background: rgba(46,196,182,0.15); border-radius: 20px;
+  filter: blur(30px); opacity: 0;
+  transition: opacity 0.5s;
+}
+.profile-img-wrap:hover .profile-img-glow { opacity: 1; }
+.profile-img {
+  width: 100%; aspect-ratio: 4/5; border-radius: 16px;
+  overflow: hidden; border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.03);
+  position: relative;
+}
+.profile-img img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.6s ease;
+}
+.profile-img-wrap:hover .profile-img img { transform: scale(1.04); }
+
+/* Profile badge */
+.profile-badge {
+  position: absolute; bottom: -16px; right: -16px;
+  background: rgba(11,17,32,0.9); border: 1px solid rgba(46,196,182,0.3);
+  backdrop-filter: blur(12px);
+  border-radius: 14px; padding: 0.75rem 1.25rem;
+  display: flex; align-items: center; gap: 0.75rem;
+}
+.profile-badge-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--teal);
+  box-shadow: 0 0 8px var(--teal);
+  animation: blink 2s ease-in-out infinite;
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; } 50% { opacity: 0.3; }
+}
+.profile-badge-text { font-size: 0.78rem; color: rgba(255,255,255,0.7); }
+.profile-badge-text strong { color: #fff; display: block; font-size: 0.85rem; }
+
+.profile-h2 {
+  font-family: var(--serif);
+  font-size: clamp(2.5rem, 4vw, 3.75rem);
+  color: #fff; line-height: 1.1; letter-spacing: -0.02em;
+  margin-bottom: 2rem;
+}
+.profile-text { font-size: 1rem; line-height: 1.8; color: rgba(255,255,255,0.55); }
+.profile-text p + p { margin-top: 1.2rem; }
+.profile-quote {
+  margin: 2rem 0;
+  padding: 1.5rem 1.5rem 1.5rem 1.75rem;
+  border-radius: 12px;
+  background: rgba(46,196,182,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  position: relative; overflow: hidden;
+}
+.profile-quote::before {
+  content: '';
+  position: absolute; top: 0; left: 0; width: 3px; height: 100%;
+  background: var(--teal);
+}
+.profile-quote p {
+  font-style: italic; color: rgba(255,255,255,0.75);
+  font-size: 1rem; line-height: 1.7;
+}
+
+/* Profile stats */
+.profile-stats {
+  display: flex; gap: 2rem; margin-top: 2rem; flex-wrap: wrap;
+}
+.stat-box {
+  padding: 1rem 1.5rem;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px; flex: 1; min-width: 100px;
+}
+.stat-num {
+  font-family: var(--serif); font-size: 2rem; color: #fff; line-height: 1;
+}
+.stat-num span { color: var(--teal); }
+.stat-desc { font-size: 0.75rem; color: rgba(255,255,255,0.4); margin-top: 0.25rem; }
+
+/* ── Features / Process ── */
+#process .process-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 4rem; align-items: start;
+}
+.process-h2 {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 3.5vw, 3.25rem);
+  color: #fff; line-height: 1.1; letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+}
+.process-desc { color: rgba(255,255,255,0.45); line-height: 1.75; margin-bottom: 2.5rem; }
+
+.process-steps { list-style: none; }
+.process-step {
+  display: flex; gap: 1.5rem;
+  padding: 1.5rem 0;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  cursor: pointer;
+  transition: padding-left 0.3s;
+}
+.process-step:hover { padding-left: 0.5rem; }
+.process-step:last-child { border-bottom: 1px solid rgba(255,255,255,0.08); }
+.step-num {
+  font-size: 0.75rem; font-weight: 600;
+  color: rgba(255,255,255,0.25); flex-shrink: 0; margin-top: 0.15rem;
+}
+.step-num.active { color: var(--teal); }
+.step-text {
+  font-size: 0.925rem; color: rgba(255,255,255,0.55); line-height: 1.65;
+  transition: color 0.3s;
+}
+.process-step:hover .step-text { color: rgba(255,255,255,0.8); }
+
+/* Process visual */
+.process-visual {
+  position: sticky; top: 120px;
+  aspect-ratio: 4/5;
+  border-radius: 24px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.015), rgba(46,196,182,0.03));
+  border: 1px solid rgba(255,255,255,0.06);
+  overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+  padding: 2rem;
+}
+.process-visual svg { width: 100%; height: 100%; }
+
+/* ── Projects ── */
+#projects .projects-header { text-align: center; margin-bottom: 4rem; }
+.projects-h2 {
+  font-family: var(--serif);
+  font-size: clamp(2.5rem, 4vw, 3.75rem);
+  color: #fff; line-height: 1.1; letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+}
+.projects-desc { color: rgba(255,255,255,0.45); max-width: 500px; margin: 0 auto; line-height: 1.75; }
+.projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+
+.project-card {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 20px; padding: 2.25rem;
+  position: relative; overflow: hidden;
+  transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+  display: flex; flex-direction: column;
+  text-decoration: none; color: inherit;
+}
+.project-card:hover {
+  border-color: rgba(46,196,182,0.3);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3), 0 0 40px rgba(46,196,182,0.06);
+}
+.project-card-glow {
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(46,196,182,0.08), transparent);
+  opacity: 0; transition: opacity 0.4s;
+}
+.project-card:hover .project-card-glow { opacity: 1; }
+
+.project-card-top {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+.project-name {
+  font-family: var(--serif); font-size: 1.625rem; color: #fff;
+}
+.project-arrow {
+  width: 38px; height: 38px; border-radius: 50%;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  display: flex; align-items: center; justify-content: center;
+  color: rgba(255,255,255,0.4);
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+  flex-shrink: 0;
+}
+.project-card:hover .project-arrow {
+  background: rgba(46,196,182,0.15);
+  color: var(--teal);
+  border-color: rgba(46,196,182,0.3);
+}
+.project-desc {
+  color: rgba(255,255,255,0.5); font-size: 0.95rem; line-height: 1.7;
+  margin-bottom: 2rem; flex-grow: 1;
+}
+.project-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.tag {
+  font-size: 0.72rem; padding: 0.3rem 0.75rem; border-radius: 999px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.07);
+  color: rgba(255,255,255,0.35);
+}
+
+/* ── Contact ── */
+#contact {
+  padding: 7rem 2rem;
+}
+.contact-inner {
+  max-width: 1200px; margin: 0 auto;
+}
+.contact-box {
+  max-width: 700px; margin: 0 auto; text-align: center;
+  padding: 5rem 4rem;
+  background: linear-gradient(135deg, rgba(255,255,255,0.02), rgba(46,196,182,0.04));
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 28px;
+  position: relative; overflow: hidden;
+}
+.contact-box-glow {
+  position: absolute; top: -100px; left: 50%; margin-left: -200px;
+  width: 400px; height: 300px;
+  background: radial-gradient(ellipse, rgba(46,196,182,0.15) 0%, transparent 70%);
+  filter: blur(40px); pointer-events: none;
+}
+.contact-h2 {
+  font-family: var(--serif);
+  font-size: clamp(2.5rem, 4vw, 3.75rem);
+  color: #fff; line-height: 1.1; letter-spacing: -0.02em;
+  margin-bottom: 1.25rem; position: relative;
+}
+.contact-desc {
+  color: rgba(255,255,255,0.45); line-height: 1.75;
+  margin-bottom: 2.5rem; position: relative;
+}
+.contact-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.625rem;
+  width: 100%; max-width: 380px;
+  padding: 1.125rem 2rem;
+  border-radius: 12px;
+  background: var(--teal); color: var(--dark);
+  font-size: 1rem; font-weight: 600; text-decoration: none;
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+  position: relative;
+}
+.contact-btn:hover {
+  background: var(--teal-alt);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(46,196,182,0.35);
+}
+
+/* ── Footer ── */
+footer {
+  padding: 0 2rem 3rem;
+}
+.footer-inner {
+  max-width: 1200px; margin: 0 auto;
+}
+.footer-links {
+  display: flex; gap: 2rem; flex-wrap: wrap; margin-bottom: 2rem;
+}
+.footer-links a {
+  font-size: 0.85rem; color: rgba(255,255,255,0.35);
+  text-decoration: none; transition: color 0.2s;
+}
+.footer-links a:hover { color: rgba(255,255,255,0.7); }
+.footer-bottom {
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 1rem;
+}
+.footer-brand {
+  display: flex; align-items: center; gap: 0.75rem;
+}
+.footer-brand-k {
+  width: 30px; height: 30px;
+  background: rgba(46,196,182,0.08);
+  border: 1px solid rgba(46,196,182,0.2);
+  border-radius: 7px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--serif); font-size: 0.875rem; color: var(--teal);
+}
+.footer-copy { font-size: 0.8rem; color: rgba(255,255,255,0.3); }
+
+/* ── Mobile ── */
+@media (max-width: 900px) {
+  .hero-inner { grid-template-columns: 1fr; gap: 3rem; padding-top: 6rem; }
+  .cube-scene { width: 320px; height: 320px; }
+  .cube { width: 240px; height: 240px; }
+  .face-front  { transform: translateZ(120px); }
+  .face-back   { transform: rotateY(180deg) translateZ(120px); }
+  .face-right  { transform: rotateY(90deg) translateZ(120px); }
+  .face-left   { transform: rotateY(-90deg) translateZ(120px); }
+  .face-top    { transform: rotateX(90deg) translateZ(120px); }
+  .face-bottom { transform: rotateX(-90deg) translateZ(120px); }
+  .cube-scene::after { width: 380px; height: 380px; margin: -190px 0 0 -190px; }
+  #profile .profile-grid { grid-template-columns: 1fr; }
+  #process .process-grid { grid-template-columns: 1fr; }
+  .process-visual { display: none; }
+  .projects-grid { grid-template-columns: 1fr; }
+  .contact-box { padding: 3rem 2rem; }
+  .nav-links, .nav-cta { display: none; }
+}
+
+/* ── Tweaks Panel ── */
+#tweaks-panel {
+  position: fixed; bottom: 24px; right: 24px;
+  width: 260px;
+  background: rgba(11,17,32,0.95); backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 16px; padding: 1.25rem;
+  z-index: 200; display: none;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  font-size: 0.8rem;
+}
+#tweaks-panel.open { display: block; }
+.tweaks-title {
+  font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--teal); margin-bottom: 1rem;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.tweaks-close {
+  background: none; border: none; color: rgba(255,255,255,0.4);
+  cursor: pointer; font-size: 1rem; line-height: 1;
+  transition: color 0.2s;
+}
+.tweaks-close:hover { color: #fff; }
+.tweak-row { margin-bottom: 0.875rem; }
+.tweak-label { color: rgba(255,255,255,0.45); font-size: 0.75rem; margin-bottom: 0.4rem; display: block; }
+.tweak-select {
+  width: 100%; background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1); border-radius: 8px;
+  color: rgba(255,255,255,0.8); padding: 0.4rem 0.6rem; font-size: 0.8rem;
+  outline: none; cursor: pointer;
+}
+.tweak-toggle {
+  display: flex; align-items: center; gap: 0.6rem; cursor: pointer;
+}
+.tweak-switch {
+  width: 36px; height: 20px; background: rgba(255,255,255,0.1);
+  border-radius: 10px; position: relative; transition: background 0.2s;
+  flex-shrink: 0;
+}
+.tweak-switch.on { background: var(--teal); }
+.tweak-switch::after {
+  content: '';
+  position: absolute; top: 3px; left: 3px;
+  width: 14px; height: 14px; border-radius: 50%;
+  background: #fff; transition: left 0.2s;
+}
+.tweak-switch.on::after { left: 19px; }
+</style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+<div class="bg-glow">
+  <div class="bg-glow-1"></div>
+  <div class="bg-glow-2"></div>
+</div>
+
+<!-- Navbar -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="#hero" class="nav-logo">
+      <div class="nav-logo-k">K</div>
+      Knecht & Partners
+    </a>
+    <ul class="nav-links">
+      <li><a href="#profile">Om mig</a></li>
+      <li><a href="#process">Process</a></li>
+      <li><a href="#projects">Projekt</a></li>
+      <li><a href="#contact">Kontakt</a></li>
+    </ul>
+
+  </div>
+</nav>
+
+<main>
+
+<!-- ══ HERO ══ -->
+<section id="hero">
+  <div class="hero-inner">
+    <!-- Text -->
+    <div class="hero-text">
+      <p class="hero-label">Knecht & Partners AB</p>
+      <h1 class="hero-h1">
+        Lön, HR<br>
+        <em>& AI.</em>
+      </h1>
+      <p class="hero-desc">Snabb, effektiv och med hjärtat på rätt plats. Jag optimerar dina processer med expertis inom lönehantering, HR och AI.</p>
+      <div class="hero-btns">
+        <a href="https://www.linkedin.com/in/josef-knecht-33582123b/" target="_blank" class="btn-primary">
+          Kontakta mig
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <div class="hero-stat-num">9<span></span></div>
+          <div class="hero-stat-label">Års erfarenhet</div>
+        </div>
+        <div>
+          <div class="hero-stat-num">2</div>
+          <div class="hero-stat-label">Aktiva projekt</div>
+        </div>
+        <div>
+          <div class="hero-stat-num">IT<span> AI </span>HR</div>
+          <div class="hero-stat-label">Unikt perspektiv</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Glass Cube -->
+    <div class="hero-visual">
+      <div class="cube-scene" id="cubeScene">
+        <div class="cube-wrap">
+          <div class="cube" id="cube">
+            <!-- Front -->
+            <div class="face face-front">
+              <div class="face-grid">
+                <div class="face-cell">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="18" rx="2"/><path d="M2 9h20M9 21V9"/><circle cx="16" cy="15" r="2"/></svg>
+                  <span>Lön</span>
+                </div>
+                <div class="face-cell">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                  <span>HR</span>
+                </div>
+              </div>
+            </div>
+            <!-- Back -->
+            <div class="face face-back">
+              <div class="face-grid">
+                <div class="face-cell">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4.5L6 21l1.5-7.5L2 9h7z"/></svg>
+                  <span>AI</span>
+                </div>
+                <div class="face-cell">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                  <span>Optimering</span>
+                </div>
+              </div>
+            </div>
+            <!-- Right -->
+            <div class="face face-right">
+              <div class="face-grid">
+                <div class="face-cell">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+                  <span>Analys</span>
+                </div>
+                <div class="face-cell">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+                  <span>Tillväxt</span>
+                </div>
+              </div>
+            </div>
+            <!-- Left -->
+            <div class="face face-left">
+              <div class="face-grid">
+                <div class="face-cell">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/><circle cx="12" cy="12" r="3"/></svg>
+                  <span>Auto</span>
+                </div>
+                <div class="face-cell">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                  <span>Säkerhet</span>
+                </div>
+              </div>
+            </div>
+            <!-- Top -->
+            <div class="face face-top">
+              <div class="face-top-inner">
+                <div class="face-k">K</div>
+                <div class="face-tag">Knecht & Partners</div>
+              </div>
+            </div>
+            <!-- Bottom -->
+            <div class="face face-bottom"></div>
+            <!-- Core glow -->
+            <div class="cube-core"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PROFILE ══ -->
+<section id="profile">
+  <div class="section-inner">
+    <div class="divider"></div>
+    <div class="profile-grid">
+      <!-- Image -->
+      <div class="profile-img-wrap reveal">
+        <div class="profile-img-glow"></div>
+        <div class="profile-img">
+          <img src="assets/josef.jpg" alt="Josef Knecht" />
+        </div>
+        <div class="profile-badge">
+          <div class="profile-badge-dot"></div>
+          <div class="profile-badge-text">
+            <strong>Josef Knecht</strong>
+            Lön & HR-konsult
+          </div>
+        </div>
+      </div>
+      <!-- Content -->
+      <div>
+        <span class="section-label reveal">Vem är jag?</span>
+        <h2 class="profile-h2 reveal reveal-delay-1">Josef Knecht</h2>
+        <div class="profile-text reveal reveal-delay-2">
+          <p>Jag har jobbat med lönehantering och HR-administration i över 9 år.</p>
+          <p>Egentligen är jag skolad inom IT, men jag hamnade inom personal på ett bananskal. Den resan har gett mig ett unikt och värdefullt perspektiv på hur system, processer och människor samverkar i en organisation.</p>
+          <div class="profile-quote">
+            <p>"Med den här kombinationen tror jag verkligen att jag kan hjälpa många verksamheter att utvecklas och förbättra sitt sätt att jobba."</p>
+          </div>
+        </div>
+        <div class="profile-stats reveal reveal-delay-3">
+          <div class="stat-box">
+            <div class="stat-num">9</div>
+            <div class="stat-desc">Års erfarenhet</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num">Lön HR</div>
+            <div class="stat-desc">IT-Bakgrund</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num">AI</div>
+            <div class="stat-desc">Fokusområde</div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PROCESS ══ -->
+<section id="process">
+  <div class="section-inner">
+    <div class="divider"></div>
+    <div class="process-grid">
+      <!-- Left -->
+      <div>
+        <span class="section-label reveal">Så jobbar jag</span>
+        <h2 class="process-h2 reveal reveal-delay-1">Ett metodiskt<br>helhetsgrepp</h2>
+        <p class="process-desc reveal reveal-delay-2">Jag arbetar metodiskt för att skapa långsiktiga förbättringar som verkligen gör skillnad för din verksamhet.</p>
+        <ul class="process-steps reveal reveal-delay-3">
+          <li class="process-step">
+            <span class="step-num active">01</span>
+            <span class="step-text">Du berättar: Du delar med dig av hur din verksamhet ser ut idag, vad som inte fungerar optimalt och vad du vill uppnå.</span>
+          </li>
+          <li class="process-step">
+            <span class="step-num">02</span>
+            <span class="step-text">Analys: Jag går igenom din verksamhet och identifierar var de största förbättringsmöjligheterna finns.</span>
+          </li>
+          <li class="process-step">
+            <span class="step-num">03</span>
+            <span class="step-text">Samarbete och dialog: Vi diskuterar hur implementationen kan se ut och anpassar lösningen helt efter dina behov.</span>
+          </li>
+          <li class="process-step">
+            <span class="step-num">04</span>
+            <span class="step-text">Tydliga resultat: Du får konkreta förbättringar som direkt påverkar din verksamhet positivt.</span>
+          </li>
+          <li class="process-step">
+            <span class="step-num">05</span>
+            <span class="step-text">Uppföljning: Jag följer upp resultaten och säkerställer att förändringarna ger långsiktig effekt.</span>
+          </li>
+        </ul>
+      </div>
+      <!-- Right visual -->
+      <div class="process-visual reveal reveal-delay-2">
+        <svg viewBox="0 0 340 500" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="lineGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#2EC4B6" stop-opacity="0.9"/>
+              <stop offset="100%" stop-color="#2EC4B6" stop-opacity="0.2"/>
+            </linearGradient>
+          </defs>
+          <!-- Vertical line -->
+          <line x1="170" y1="80" x2="170" y2="420" stroke="url(#lineGrad)" stroke-width="2" stroke-dasharray="6,4"/>
+
+          <!-- Animated dot traveling down -->
+          <circle cx="170" cy="80" r="4" fill="#2EC4B6">
+            <animate attributeName="cy" values="80;160;240;320;420;80" dur="5s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.6 1; 0.4 0 0.6 1; 0.4 0 0.6 1; 0.4 0 0.6 1; 0 0 1 1"/>
+            <animate attributeName="opacity" values="1;1;1;1;0;0" dur="5s" repeatCount="indefinite"/>
+          </circle>
+
+          <!-- Step 1: Magnifier -->
+          <g>
+            <circle cx="170" cy="80" r="42" fill="rgba(46,196,182,0.05)" stroke="rgba(46,196,182,0.25)" stroke-width="1.5"/>
+            <circle cx="168" cy="78" r="15" fill="none" stroke="#2EC4B6" stroke-width="2"/>
+            <line x1="179" y1="89" x2="188" y2="98" stroke="#2EC4B6" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="164" y1="78" x2="172" y2="78" stroke="#2EC4B6" stroke-width="1.5" opacity="0.6"/>
+            <line x1="168" y1="74" x2="168" y2="82" stroke="#2EC4B6" stroke-width="1.5" opacity="0.6"/>
+          </g>
+
+          <!-- Step 2: Dialogue -->
+          <g>
+            <circle cx="170" cy="200" r="42" fill="rgba(46,196,182,0.05)" stroke="rgba(46,196,182,0.25)" stroke-width="1.5"/>
+            <rect x="155" y="188" width="24" height="17" rx="4" fill="none" stroke="#2EC4B6" stroke-width="2"/>
+            <path d="M158 205 L155 210 L163 205" fill="none" stroke="#2EC4B6" stroke-width="1.5"/>
+            <rect x="164" y="195" width="20" height="14" rx="4" fill="none" stroke="rgba(46,196,182,0.5)" stroke-width="1.5"/>
+            <path d="M181 209 L184 213 L177 209" fill="none" stroke="rgba(46,196,182,0.5)" stroke-width="1.5"/>
+          </g>
+
+          <!-- Step 3: Target -->
+          <g>
+            <circle cx="170" cy="320" r="42" fill="rgba(46,196,182,0.05)" stroke="rgba(46,196,182,0.25)" stroke-width="1.5"/>
+            <circle cx="170" cy="320" r="20" fill="none" stroke="rgba(46,196,182,0.3)" stroke-width="1.5"/>
+            <circle cx="170" cy="320" r="12" fill="none" stroke="rgba(46,196,182,0.55)" stroke-width="1.5"/>
+            <circle cx="170" cy="320" r="4" fill="#2EC4B6"/>
+            <line x1="188" y1="304" x2="176" y2="316" stroke="#2EC4B6" stroke-width="2" stroke-linecap="round"/>
+            <path d="M188 304 L184 308 M188 304 L184 300" stroke="#2EC4B6" stroke-width="1.5" stroke-linecap="round"/>
+          </g>
+
+          <!-- Step 4: Checkmark -->
+          <g>
+            <circle cx="170" cy="430" r="42" fill="rgba(46,196,182,0.05)" stroke="rgba(46,196,182,0.25)" stroke-width="1.5"/>
+            <path d="M154 430 L165 442 L187 418" stroke="#2EC4B6" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          </g>
+
+          <!-- Step labels -->
+          <text x="224" y="84" fill="rgba(46,196,182,0.6)" font-size="10" font-family="Inter,sans-serif" font-weight="600" letter-spacing="1">ANALYS</text>
+          <text x="224" y="204" fill="rgba(46,196,182,0.6)" font-size="10" font-family="Inter,sans-serif" font-weight="600" letter-spacing="1">DIALOG</text>
+          <text x="224" y="324" fill="rgba(46,196,182,0.6)" font-size="10" font-family="Inter,sans-serif" font-weight="600" letter-spacing="1">RESULTAT</text>
+          <text x="224" y="434" fill="rgba(46,196,182,0.6)" font-size="10" font-family="Inter,sans-serif" font-weight="600" letter-spacing="1">UPPFÖLJNING</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PROJECTS ══ -->
+<section id="projects">
+  <div class="section-inner">
+    <div class="divider"></div>
+    <div class="projects-header reveal">
+      <span class="section-label">Mina Projekt</span>
+      <h2 class="projects-h2">Aktuella initiativ</h2>
+      <p class="projects-desc">Plattformar och optimering av procceser.</p>
+    </div>
+    <div class="projects-grid">
+      <a href="https://puckhr.se" target="_blank" rel="noopener" class="project-card reveal">
+        <div class="project-card-glow"></div>
+        <div class="project-card-top">
+          <h3 class="project-name">puckhr.se</h3>
+          <div class="project-arrow">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>
+          </div>
+        </div>
+        <p class="project-desc">HR-plattform med AI-integration som förenklar arbetsrätt och HR-stöd för svenska företag.</p>
+        <div class="project-tags">
+          <span class="tag">Arbetsrätt</span>
+          <span class="tag">HR-stöd</span>
+          <span class="tag">AI-plattform</span>
+        </div>
+      </a>
+      <div class="project-card reveal reveal-delay-1">
+        <div class="project-card-glow"></div>
+        <div class="project-card-top">
+          <h3 class="project-name">Idrottsservice Västerbotten AB</h3>
+          <div class="project-arrow">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>
+          </div>
+        </div>
+        <p class="project-desc">Hjälper till att optimera arbetsflöden i samband med att en medarbetare går i pension för att säkra upp flödet. Övergång från Excel till deras ERP-system Blikk.</p>
+        <div class="project-tags">
+          <span class="tag">Processoptimering</span>
+          <span class="tag">ERP / Blikk</span>
+          <span class="tag">Kunskapsöverföring</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CONTACT ══ -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="divider"></div>
+    <div class="contact-box reveal">
+      <div class="contact-box-glow"></div>
+      <h2 class="contact-h2">Kontakta mig</h2>
+      <p class="contact-desc">
+</p>
+      <div style="display:flex;flex-direction:column;gap:0.875rem;width:100%;max-width:380px;margin:0 auto 1.5rem;">
+        <a href="tel:+46761385858" style="display:inline-flex;align-items:center;gap:0.75rem;padding:0.875rem 1.5rem;border-radius:12px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.7);text-decoration:none;font-size:0.95rem;transition:border-color 0.2s,color 0.2s;" onmouseover="this.style.borderColor='rgba(46,196,182,0.4)';this.style.color='#fff'" onmouseout="this.style.borderColor='rgba(255,255,255,0.1)';this.style.color='rgba(255,255,255,0.7)'">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" style="color:var(--teal);flex-shrink:0"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          +46 76 138 58 58
+        </a>
+        <a href="mailto:josef.knecht@knechtpartners.se" style="display:inline-flex;align-items:center;gap:0.75rem;padding:0.875rem 1.5rem;border-radius:12px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.7);text-decoration:none;font-size:0.95rem;transition:border-color 0.2s,color 0.2s;" onmouseover="this.style.borderColor='rgba(46,196,182,0.4)';this.style.color='#fff'" onmouseout="this.style.borderColor='rgba(255,255,255,0.1)';this.style.color='rgba(255,255,255,0.7)'">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" style="color:var(--teal);flex-shrink:0"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          josef.knecht@knechtpartners.se
+        </a>
+      </div>
+      <a href="https://www.linkedin.com/in/josef-knecht-33582123b/" target="_blank" rel="noopener" class="contact-btn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        Kontakta på LinkedIn →
+      </a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-inner">
+    <div class="divider"></div>
+    <div class="footer-links">
+      <a href="#profile">Om mig</a>
+      <a href="#process">Process</a>
+      <a href="#projects">Projekt</a>
+      <a href="#contact">Kontakt</a>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-brand">
+        <div class="footer-brand-k">K</div>
+        <span class="footer-copy">© Knecht & Partners AB. 2025</span>
+      </div>
+      <span class="footer-copy">Org.nr: 559525-8236 &nbsp;·&nbsp; Alla rättigheter förbehållna</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Tweaks Panel -->
+<div id="tweaks-panel">
+  <div class="tweaks-title">
+    Tweaks
+    <button class="tweaks-close" onclick="closeTweaks()">✕</button>
+  </div>
+  <div class="tweak-row">
+    <span class="tweak-label">Kubens hastighet</span>
+    <select class="tweak-select" id="tweak-speed">
+      <option value="0.08">Sakta</option>
+      <option value="0.15" selected>Normal</option>
+      <option value="0.3">Snabb</option>
+    </select>
+  </div>
+  <div class="tweak-row">
+    <span class="tweak-label">Kubens riktning</span>
+    <select class="tweak-select" id="tweak-dir">
+      <option value="1" selected>Medsols</option>
+      <option value="-1">Motsols</option>
+    </select>
+  </div>
+  <div class="tweak-row">
+    <div class="tweak-toggle" onclick="toggleParallax()">
+      <div class="tweak-switch on" id="parallax-switch"></div>
+      <span class="tweak-label" style="margin:0">Parallax-effekt</span>
+    </div>
+  </div>
+  <div class="tweak-row">
+    <div class="tweak-toggle" onclick="toggleFloat()">
+      <div class="tweak-switch on" id="float-switch"></div>
+      <span class="tweak-label" style="margin:0">Flytande animation</span>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ── Tweaks protocol ── */
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "cubeSpeed": 0.08,
+  "cubeDir": 1,
+  "parallax": true,
+  "float": true
+}/*EDITMODE-END*/;
+let tweaks = Object.assign({}, TWEAK_DEFAULTS);
+
+window.addEventListener('message', e => {
+  if (e.data?.type === '__activate_edit_mode') showTweaks();
+  if (e.data?.type === '__deactivate_edit_mode') closeTweaks();
+});
+window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+
+function showTweaks() { document.getElementById('tweaks-panel').classList.add('open'); }
+function closeTweaks() {
+  document.getElementById('tweaks-panel').classList.remove('open');
+  window.parent.postMessage({ type: '__edit_mode_dismissed' }, '*');
+}
+
+document.getElementById('tweak-speed').addEventListener('change', e => {
+  tweaks.cubeSpeed = parseFloat(e.target.value);
+  window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { cubeSpeed: tweaks.cubeSpeed } }, '*');
+});
+document.getElementById('tweak-dir').addEventListener('change', e => {
+  tweaks.cubeDir = parseInt(e.target.value);
+});
+
+function toggleParallax() {
+  tweaks.parallax = !tweaks.parallax;
+  document.getElementById('parallax-switch').classList.toggle('on', tweaks.parallax);
+}
+function toggleFloat() {
+  tweaks.float = !tweaks.float;
+  document.getElementById('float-switch').classList.toggle('on', tweaks.float);
+  document.querySelector('.cube-wrap').style.animation = tweaks.float ? '' : 'none';
+}
+
+/* ── Cube rotation ── */
+const cube = document.getElementById('cube');
+let rot = 35;
+let mouseParallaxX = 0, mouseParallaxY = 0;
+let targetPX = 0, targetPY = 0;
+
+function animateCube() {
+  rot += tweaks.cubeSpeed * tweaks.cubeDir;
+  if (tweaks.parallax) {
+    mouseParallaxX += (targetPX - mouseParallaxX) * 0.05;
+    mouseParallaxY += (targetPY - mouseParallaxY) * 0.05;
+  } else {
+    mouseParallaxX = 0; mouseParallaxY = 0;
+  }
+  cube.style.transform = `rotateX(${-20 + mouseParallaxY}deg) rotateY(${rot + mouseParallaxX}deg)`;
+  requestAnimationFrame(animateCube);
+}
+animateCube();
+
+document.addEventListener('mousemove', e => {
+  // Parallax disabled — cube rotates independently
+});
+
+/* ── Navbar scroll ── */
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 60);
+});
+
+/* ── Scroll reveal ── */
+const revealEls = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) e.target.classList.add('visible');
+  });
+}, { threshold: 0.12 });
+revealEls.forEach(el => observer.observe(el));
+
+/* ── Active nav link ── */
+const sections = ['profile','process','projects','contact'];
+const navAs = document.querySelectorAll('.nav-links a');
+const sectionObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navAs.forEach(a => a.classList.remove('active'));
+      const link = document.querySelector(`.nav-links a[href="#${e.target.id}"]`);
+      if (link) link.classList.add('active');
+    }
+  });
+}, { threshold: 0.4 });
+sections.forEach(id => {
+  const el = document.getElementById(id);
+  if (el) sectionObserver.observe(el);
+});
+</script>
+</body>
+</html>

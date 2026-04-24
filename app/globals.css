@@ -1,0 +1,408 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-hero-dark text-white/70;
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-serif;
+  }
+}
+
+@layer components {
+  .section-divider {
+    @apply w-full h-px bg-white/10;
+  }
+
+  .section-label {
+    @apply text-sm font-sans tracking-wider text-accent-glow mb-4;
+  }
+
+  .pill-btn {
+    @apply inline-flex items-center px-6 py-3 rounded-full text-sm font-medium transition-all duration-300;
+  }
+
+  .pill-btn-olive {
+    @apply pill-btn bg-accent-glow/10 text-accent-glow border border-accent-glow/30 hover:bg-accent-glow/20;
+  }
+
+  .pill-btn-dark {
+    @apply inline-flex items-center justify-center w-full px-8 py-4 rounded-lg bg-accent-glow text-hero-dark font-medium text-lg transition-all duration-300 hover:bg-accent-glow-alt;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   HERO — Dark Background
+   ═══════════════════════════════════════════ */
+
+.bg-hero-dark {
+  background: linear-gradient(165deg, #0B1120 0%, #0F1A2E 40%, #0B1120 100%);
+}
+
+.bg-grid-pattern {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+.bg-noise {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  background-size: 128px 128px;
+}
+
+/* ═══════════════════════════════════════════
+   HERO — Text Entrance Animations
+   ═══════════════════════════════════════════ */
+
+.hero-text-enter {
+  animation: heroSlideUp 1s ease-out forwards;
+}
+
+.hero-text-enter-delay {
+  opacity: 0;
+  animation: heroSlideUp 1s ease-out 0.3s forwards;
+}
+
+.hero-text-enter-delay-2 {
+  opacity: 0;
+  animation: heroSlideUp 1s ease-out 0.5s forwards;
+}
+
+.hero-cube-enter {
+  opacity: 0;
+  animation: heroCubeIn 1.5s ease-out 0.4s forwards;
+}
+
+@keyframes heroSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes heroCubeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ═══════════════════════════════════════════
+   ROTATING GLASS CUBE
+   ═══════════════════════════════════════════ */
+
+.glass-cube-scene {
+  perspective: 1100px;
+  width: 360px;
+  height: 360px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+@media (min-width: 768px) {
+  .glass-cube-scene {
+    width: 580px;
+    height: 580px;
+  }
+}
+
+.glass-cube {
+  position: relative;
+  width: 240px;
+  height: 240px;
+  transform-style: preserve-3d;
+}
+
+@media (min-width: 768px) {
+  .glass-cube {
+    width: 320px;
+    height: 320px;
+  }
+}
+
+/* ── Face base ── */
+.glass-cube-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: visible;
+  border: 1.5px solid rgba(46, 196, 182, 0.25);
+  border-radius: 6px;
+  background: linear-gradient(135deg,
+      rgba(46, 196, 182, 0.06) 0%,
+      rgba(11, 17, 32, 0.5) 50%,
+      rgba(46, 196, 182, 0.08) 100%);
+  backdrop-filter: blur(6px);
+  box-shadow:
+    inset 0 0 40px rgba(46, 196, 182, 0.04),
+    0 0 15px rgba(46, 196, 182, 0.06);
+  overflow: hidden;
+}
+
+.glass-cube-face--accent {
+  border-color: rgba(46, 196, 182, 0.3);
+  background: linear-gradient(135deg,
+      rgba(46, 196, 182, 0.08) 0%,
+      rgba(79, 209, 197, 0.04) 50%,
+      rgba(46, 196, 182, 0.1) 100%);
+  box-shadow:
+    inset 0 0 50px rgba(46, 196, 182, 0.05),
+    0 0 20px rgba(46, 196, 182, 0.08);
+}
+
+.glass-cube-face--top {
+  border-color: rgba(46, 196, 182, 0.35);
+  background: linear-gradient(135deg,
+      rgba(255, 255, 255, 0.06) 0%,
+      rgba(46, 196, 182, 0.1) 50%,
+      rgba(255, 255, 255, 0.03) 100%);
+  box-shadow:
+    inset 0 0 60px rgba(46, 196, 182, 0.08),
+    0 0 30px rgba(46, 196, 182, 0.1);
+}
+
+/* ── Edge glow lines ── */
+.glass-cube-face::before,
+.glass-cube-face::after {
+  content: '';
+  position: absolute;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.glass-cube-face::before {
+  top: 0;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg,
+      transparent,
+      rgba(46, 196, 182, 0.6) 30%,
+      rgba(46, 196, 182, 0.9) 50%,
+      rgba(46, 196, 182, 0.6) 70%,
+      transparent);
+  box-shadow: 0 0 8px rgba(46, 196, 182, 0.3);
+}
+
+.glass-cube-face::after {
+  bottom: 0;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg,
+      transparent,
+      rgba(46, 196, 182, 0.4) 30%,
+      rgba(46, 196, 182, 0.6) 50%,
+      rgba(46, 196, 182, 0.4) 70%,
+      transparent);
+}
+
+/* ── Face content grid ── */
+.glass-face-grid {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  padding: 14px;
+}
+
+@media (min-width: 768px) {
+  .glass-face-grid {
+    gap: 10px;
+    padding: 20px;
+  }
+}
+
+.glass-face-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border-radius: 8px;
+  background: rgba(46, 196, 182, 0.03);
+  border: 1px solid rgba(46, 196, 182, 0.08);
+  color: rgba(46, 196, 182, 0.65);
+}
+
+.glass-face-cell span {
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(46, 196, 182, 0.6);
+}
+
+@media (min-width: 768px) {
+  .glass-face-cell span {
+    font-size: 10px;
+  }
+
+  .glass-face-cell svg {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+/* ── Top face — branding ── */
+.glass-face-logo {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.glass-face-k {
+  font-family: var(--font-dm-serif), Georgia, serif;
+  font-size: 40px;
+  font-weight: 700;
+  color: rgba(46, 196, 182, 0.5);
+  line-height: 1;
+}
+
+@media (min-width: 768px) {
+  .glass-face-k {
+    font-size: 56px;
+  }
+}
+
+.glass-face-tagline {
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-size: 8px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(46, 196, 182, 0.4);
+}
+
+@media (min-width: 768px) {
+  .glass-face-tagline {
+    font-size: 10px;
+  }
+}
+
+/* ── Inner glow core ── */
+.glass-cube-core {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 80px;
+  height: 80px;
+  margin: -40px 0 0 -40px;
+  border-radius: 50%;
+  background: radial-gradient(circle,
+      rgba(46, 196, 182, 0.35) 0%,
+      rgba(46, 196, 182, 0) 70%);
+  transform: translateZ(0);
+  animation: glassCoreGlow 4s ease-in-out infinite;
+}
+
+@media (min-width: 768px) {
+  .glass-cube-core {
+    width: 120px;
+    height: 120px;
+    margin: -60px 0 0 -60px;
+  }
+}
+
+@keyframes glassCoreGlow {
+
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scale(0.8);
+  }
+
+  50% {
+    opacity: 0.8;
+    transform: scale(1.2);
+  }
+}
+
+/* ── Ambient glow behind cube ── */
+.glass-cube-scene::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 380px;
+  height: 380px;
+  margin: -190px 0 0 -190px;
+  background: radial-gradient(ellipse at center,
+      rgba(46, 196, 182, 0.1) 0%,
+      rgba(46, 196, 182, 0.03) 45%,
+      transparent 70%);
+  border-radius: 50%;
+  filter: blur(40px);
+  z-index: -1;
+  pointer-events: none;
+}
+
+@media (min-width: 768px) {
+  .glass-cube-scene::after {
+    width: 560px;
+    height: 560px;
+    margin: -280px 0 0 -280px;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   GENERAL STYLES
+   ═══════════════════════════════════════════ */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+::selection {
+  background-color: #2EC4B6;
+  color: #0B1120;
+}
+
+.img-hover {
+  transition: transform 0.6s ease;
+}
+
+.img-hover:hover {
+  transform: scale(1.02);
+}
