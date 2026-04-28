@@ -1,5 +1,4 @@
 import { FC } from 'react';
-import { Logo } from '@/components/ui/Logo';
 
 const footerLinks = [
     { label: 'Om mig', href: '#profile' },
@@ -28,7 +27,9 @@ export const Footer: FC = () => {
 
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                     <div className="flex items-center gap-4">
-                        <Logo iconOnly variant="light" />
+                        <div className="w-[30px] h-[30px] flex items-center justify-center rounded-lg bg-accent-glow/10 border border-accent-glow/20 font-serif text-sm font-bold text-accent-glow">
+                            K
+                        </div>
                         <span className="text-sm text-white/40">
                             © Knecht &amp; Partners AB. 2025
                         </span>

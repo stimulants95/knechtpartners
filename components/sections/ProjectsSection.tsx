@@ -10,7 +10,7 @@ const projects = [
   {
     name: 'Idrottsservice Västerbotten AB',
     description: 'Hjälper till att optimera arbetsflöden i samband med att en medarbetare går i pension för att säkra upp flödet. Övergång från Excel till deras ERP-system Blikk.',
-    url: '#',
+    url: 'https://idrottsservice.com/',
     features: ['Processoptimering', 'ERP / Blikk', 'Kunskapsöverföring']
   }
 ];

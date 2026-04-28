@@ -26,14 +26,14 @@ export const ContactSection: FC = () => {
               +46 76 138 58 58
             </a>
             <a
-              href="mailto:josef.knecht@knechtpartners.se"
+              href="mailto:josef.knecht@knecht-partners.se"
               className="flex items-center gap-3 px-6 py-4 rounded-xl bg-white/[0.04] border border-white/10 text-white/70 text-sm hover:border-accent-glow/40 hover:text-white transition-all duration-200"
             >
               <svg className="w-5 h-5 text-accent-glow flex-shrink-0" fill="none" stroke="currentColor" strokeWidth={1.75} viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
                 <polyline points="22,6 12,13 2,6" />
               </svg>
-              josef.knecht@knechtpartners.se
+              josef.knecht@knecht-partners.se
             </a>
           </div>
 
