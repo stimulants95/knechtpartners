@@ -1,10 +1,19 @@
 import { FC } from 'react';
 
-const projects = [
+type Project = {
+  name: string;
+  description: string;
+  url: string;
+  status?: string;
+  features: string[];
+};
+
+const projects: Project[] = [
   {
     name: 'puckhr.se',
     description: 'HR-plattform med AI-integration.',
     url: 'https://puckhr.se',
+    status: 'Under utveckling',
     features: ['Arbetsrätt', 'HR-stöd', 'AI-plattform']
   },
   {
@@ -51,8 +60,16 @@ export const ProjectsSection: FC = () => {
               
               <div className="relative z-10 flex flex-col h-full">
                 <div className="flex justify-between items-start mb-6">
-                  <h3 className="text-2xl font-serif text-white">{project.name}</h3>
-                  <a 
+                  <div>
+                    <h3 className="text-2xl font-serif text-white">{project.name}</h3>
+                    {project.status && (
+                      <div className="inline-flex items-center gap-1.5 mt-2 px-2.5 py-0.5 rounded-full bg-accent-glow/10 border border-accent-glow/30">
+                        <span className="w-1.5 h-1.5 rounded-full bg-accent-glow animate-pulse" />
+                        <span className="text-[10px] font-medium text-accent-glow uppercase tracking-wider">{project.status}</span>
+                      </div>
+                    )}
+                  </div>
+                  <a
                     href={project.url}
                     target="_blank"
                     rel="noreferrer"
