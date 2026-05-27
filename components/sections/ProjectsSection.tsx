@@ -12,6 +12,12 @@ const projects = [
     description: 'Hjälper till att optimera arbetsflöden i samband med att en medarbetare går i pension för att säkra upp flödet. Övergång från Excel till deras ERP-system Blikk.',
     url: 'https://idrottsservice.com/',
     features: ['Processoptimering', 'ERP / Blikk', 'Kunskapsöverföring']
+  },
+  {
+    name: 'Copilot & Cowork',
+    description: 'Föreläser om Microsoft Copilot och Cowork samt hjälper företag att komma igång med Cowork i sin verksamhet.',
+    url: '#contact',
+    features: ['Föreläsning', 'Copilot', 'Cowork']
   }
 ];
 
@@ -34,7 +40,7 @@ export const ProjectsSection: FC = () => {
         </div>
 
         {/* Projects grid */}
-        <div className="grid md:grid-cols-2 gap-6 lg:gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           {projects.map((project, idx) => (
             <div 
               key={idx}
