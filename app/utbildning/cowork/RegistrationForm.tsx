@@ -131,7 +131,7 @@ export const RegistrationForm: FC<{ pricePerParticipant: number }> = ({
         body: JSON.stringify({
           training: {
             name: 'Kom igång med Microsoft Cowork',
-            date: '2026-06-19',
+            date: '2026-06-25',
             time: '10:00–11:30',
             pricePerParticipant,
           },
@@ -161,7 +161,7 @@ export const RegistrationForm: FC<{ pricePerParticipant: number }> = ({
       <div className="p-10 rounded-2xl bg-accent-glow/5 border border-accent-glow/30">
         <h3 className="text-2xl font-serif text-white mb-3">Tack för din anmälan!</h3>
         <p className="text-white/70 mb-2">
-          Vi ses fredagen den 19 juni kl 10:00 — Teams-länken skickas till deltagarnas e-post senast dagen innan.
+          Vi ses torsdagen den 25 juni kl 10:00 — Teams-länken skickas till deltagarnas e-post senast dagen innan.
         </p>
         <p className="text-white/70 mb-4">
           En bekräftelse är på väg till kontaktpersonens e-postadress.

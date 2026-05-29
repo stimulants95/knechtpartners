@@ -5,7 +5,7 @@ import { RegistrationForm } from './RegistrationForm';
 export const metadata: Metadata = {
   title: 'Kom igång med Microsoft Cowork — Utbildning | Knecht & Partners AB',
   description:
-    'Live-utbildning via Microsoft Teams den 19 juni 2026, 10:00–11:30. 30 min teori och 60 min praktiska exempel som vi skapar tillsammans. 900 kr ex moms per deltagare.',
+    'Live-utbildning via Microsoft Teams den 25 juni 2026, 10:00–11:30. 30 min teori och 60 min praktiska exempel som vi skapar tillsammans. 900 kr ex moms per deltagare.',
   robots: { index: false, follow: false },
 };
 
@@ -39,7 +39,7 @@ export default function CoworkTrainingPage() {
             <div className="grid sm:grid-cols-2 gap-4 mb-12">
               <InfoCard
                 label="Datum"
-                value="19 juni 2026"
+                value="25 juni 2026"
               />
               <InfoCard
                 label="Tid"
