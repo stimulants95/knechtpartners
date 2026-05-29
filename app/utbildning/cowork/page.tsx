@@ -176,6 +176,10 @@ const takeaways = [
     body: 'Cowork tillåter bara ett schemalagt jobb i taget. Jag går igenom hur du packar flera flöden i samma jobb och får ut maximal nytta av begränsningen.',
   },
   {
+    title: 'Anonymisera data för AI under strikt GDPR',
+    body: 'Har du en strikt GDPR-policy? Jag visar hur du anonymiserar och avidentifierar känsliga uppgifter så att du ändå kan dra nytta av AI — utan att personuppgifter lämnar din kontroll.',
+  },
+  {
     title: 'Frågor',
     body: 'Jag avslutar med en öppen frågestund där du får svar på dina specifika frågor om Cowork.',
   },
