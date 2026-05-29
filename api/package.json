@@ -1,0 +1,15 @@
+{
+  "name": "knecht-partners-api",
+  "version": "1.0.0",
+  "description": "Azure Functions API for knecht-partners.se",
+  "main": "register-training/index.js",
+  "scripts": {
+    "start": "func start"
+  },
+  "dependencies": {
+    "@azure/communication-email": "^1.0.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

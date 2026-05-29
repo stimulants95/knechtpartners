@@ -2,8 +2,14 @@
 
 # dependencies
 /node_modules
+/api/node_modules
 /.pnp
 .pnp.js
+
+# azure functions
+/api/local.settings.json
+/api/bin
+/api/obj
 
 # testing
 /coverage

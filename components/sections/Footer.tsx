@@ -1,10 +1,10 @@
 import { FC } from 'react';
 
 const footerLinks = [
-    { label: 'Om mig', href: '#profile' },
-    { label: 'Process', href: '#process' },
-    { label: 'Projekt', href: '#projects' },
-    { label: 'Kontakt', href: '#contact' },
+    { label: 'Om mig', href: '/#profile' },
+    { label: 'Process', href: '/#process' },
+    { label: 'Projekt', href: '/#projects' },
+    { label: 'Kontakt', href: '/#contact' },
 ];
 
 export const Footer: FC = () => {

@@ -3,10 +3,10 @@
 import { FC, useState, useEffect } from 'react';
 
 const navLinks = [
-    { label: 'Om mig', href: '#profile' },
-    { label: 'Process', href: '#process' },
-    { label: 'Projekt', href: '#projects' },
-    { label: 'Kontakt', href: '#contact' },
+    { label: 'Om mig', href: '/#profile' },
+    { label: 'Process', href: '/#process' },
+    { label: 'Projekt', href: '/#projects' },
+    { label: 'Kontakt', href: '/#contact' },
 ];
 
 export const Navbar: FC = () => {
@@ -30,7 +30,7 @@ export const Navbar: FC = () => {
             <div className="max-w-6xl mx-auto px-6 lg:px-8">
                 <div className="flex items-center justify-between h-20 lg:h-24">
                     {/* Logo */}
-                    <a href="#" className="flex-shrink-0 flex items-center gap-2 text-white no-underline">
+                    <a href="/" className="flex-shrink-0 flex items-center gap-2 text-white no-underline">
                         <div className="w-[34px] h-[34px] flex items-center justify-center rounded-lg bg-accent-glow/10 border border-accent-glow/30 font-serif text-base font-bold text-accent-glow">
                             K
                         </div>

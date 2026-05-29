@@ -1,0 +1,14 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "FUNCTIONS_WORKER_RUNTIME": "node",
+    "AzureWebJobsStorage": "",
+    "COMMUNICATION_SERVICES_CONNECTION_STRING": "endpoint=https://<your-acs-resource>.communication.azure.com/;accesskey=<key>",
+    "SENDER_EMAIL_ADDRESS": "DoNotReply@<your-subdomain>.azurecomm.net",
+    "RECIPIENT_EMAIL_ADDRESS": "josef.knecht@knecht-partners.se"
+  },
+  "Host": {
+    "LocalHttpPort": 7071,
+    "CORS": "*"
+  }
+}
