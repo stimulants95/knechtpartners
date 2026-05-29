@@ -3,9 +3,9 @@ import { Footer } from '@/components/sections/Footer';
 import { RegistrationForm } from './RegistrationForm';
 
 export const metadata: Metadata = {
-  title: 'Kom igång med Microsoft Cowork — Utbildning | Knecht & Partners AB',
+  title: 'Kom igång med AI i lönearbetet — Utbildning | Knecht & Partners AB',
   description:
-    'Live-utbildning via Microsoft Teams den 25 juni 2026, 10:00–11:30. 30 min teori och 60 min praktiska exempel som vi skapar tillsammans. 900 kr ex moms per deltagare.',
+    'Live-utbildning via Microsoft Teams den 25 juni 2026, 10:00–11:30. För dig som jobbar med lön och vill börja använda AI med Microsoft Cowork. 900 kr ex moms per deltagare.',
   robots: { index: false, follow: false },
 };
 
@@ -29,11 +29,11 @@ export default function CoworkTrainingPage() {
           <div className="max-w-4xl mx-auto px-6 lg:px-8">
             <p className="section-label">Utbildning · Live via Microsoft Teams</p>
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-serif text-white mb-6 leading-tight tracking-tight">
-              Kom igång med Microsoft Cowork
+              Kom igång med AI i lönearbetet
             </h1>
             <p className="text-lg text-white/60 leading-relaxed max-w-2xl mb-10">
-              En kompakt och praktisk utbildning för dig som vill komma igång med Microsoft Cowork
-              i din verksamhet. 30 minuter teori och 60 minuter praktiska exempel som vi skapar tillsammans live.
+              En kompakt och praktisk utbildning för dig som vill komma igång med AI i din
+              verksamhet. 30 minuter teori och 60 minuter praktiska exempel som vi skapar tillsammans live.
             </p>
 
             <div className="grid sm:grid-cols-2 gap-4 mb-12">
