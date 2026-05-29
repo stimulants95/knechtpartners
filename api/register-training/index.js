@@ -230,7 +230,7 @@ function buildConfirmationHtml(d) {
 
     <h3 style="margin:24px 0 8px;">Praktisk information</h3>
     <p style="margin:0 0 8px;">Utbildningen genomförs live via <strong>Microsoft Teams</strong>. Möteslänk skickas till deltagarnas e-postadresser senast dagen innan utbildningen.</p>
-    <p style="margin:0;">Faktura skickas i samma månad som utbildningen genomförs, 30 dagars betalningsvillkor.</p>
+    <p style="margin:0;">Faktura skickas efter utförd utbildning, samma månad. 30 dagars betalningsvillkor.</p>
 
     <h3 style="margin:24px 0 8px;">Frågor?</h3>
     <p style="margin:0;">Kontakta Josef på <a href="mailto:josef.knecht@knecht-partners.se">josef.knecht@knecht-partners.se</a>.</p>
@@ -256,7 +256,7 @@ function buildConfirmationPlainText(d) {
     '',
     'PRAKTISK INFORMATION',
     'Utbildningen genomförs live via Microsoft Teams. Möteslänk skickas till deltagarnas e-postadresser senast dagen innan utbildningen.',
-    'Faktura skickas i samma månad som utbildningen genomförs, 30 dagars betalningsvillkor.',
+    'Faktura skickas efter utförd utbildning, samma månad. 30 dagars betalningsvillkor.',
     '',
     'Frågor? Kontakta Josef på josef.knecht@knecht-partners.se',
     '',

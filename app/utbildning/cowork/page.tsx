@@ -63,7 +63,7 @@ export default function CoworkTrainingPage() {
           <div className="max-w-4xl mx-auto px-6 lg:px-8">
             <div className="section-divider mb-16" />
             <h2 className="text-3xl sm:text-4xl font-serif text-white mb-10">
-              Vad du tar med dig
+              Agenda
             </h2>
             <div className="grid sm:grid-cols-2 gap-4">
               {takeaways.map((item, i) => (
@@ -92,7 +92,7 @@ export default function CoworkTrainingPage() {
               Boka din plats
             </h2>
             <p className="text-white/55 mb-10 max-w-2xl">
-              Faktura skickas i samma månad som utbildningen genomförs, 30 dagars betalningsvillkor.
+              Faktura skickas efter utförd utbildning, samma månad. 30 dagars betalningsvillkor.
             </p>
 
             <RegistrationForm pricePerParticipant={PRICE_PER_PARTICIPANT_SEK} />

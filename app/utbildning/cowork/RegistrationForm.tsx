@@ -138,10 +138,13 @@ export const RegistrationForm: FC<{ pricePerParticipant: number }> = ({
       <div className="p-10 rounded-2xl bg-accent-glow/5 border border-accent-glow/30">
         <h3 className="text-2xl font-serif text-white mb-3">Tack för din anmälan!</h3>
         <p className="text-white/70 mb-2">
-          En bekräftelse skickas till kontaktpersonens e-postadress inom kort.
+          Vi ses fredagen den 19 juni kl 10:00 — Teams-länken skickas till deltagarnas e-post senast dagen innan.
+        </p>
+        <p className="text-white/70 mb-4">
+          En bekräftelse är på väg till kontaktpersonens e-postadress.
         </p>
         <p className="text-white/55 text-sm">
-          Faktura skickas i samma månad som utbildningen genomförs. Om du har frågor, kontakta{' '}
+          Faktura skickas efter utförd utbildning, samma månad. Vid frågor — hör av dig till{' '}
           <a className="text-accent-glow hover:text-accent-glow-alt" href="mailto:josef.knecht@knecht-partners.se">
             josef.knecht@knecht-partners.se
           </a>
