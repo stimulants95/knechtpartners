@@ -2,6 +2,11 @@ const { EmailClient } = require('@azure/communication-email');
 
 const POLLER_OPTIONS = { abortSignal: undefined, updateIntervalInMs: 2000 };
 
+// Giltiga rabattkoder → rabattsats. Skiftlägesokänsligt (matchas mot versaler).
+const DISCOUNT_CODES = {
+  LON20: 0.2, // Nätverk för lönespecialister/konsulter
+};
+
 module.exports = async function (context, req) {
   const data = req.body;
 
@@ -10,6 +15,9 @@ module.exports = async function (context, req) {
     context.res = { status: 400, body: { error: validation.error } };
     return;
   }
+
+  // Räkna om totalsumman på servern — lita aldrig på klientens belopp.
+  data.totals = computeTotals(data);
 
   const connectionString = process.env.COMMUNICATION_SERVICES_CONNECTION_STRING;
   const senderAddress = process.env.SENDER_EMAIL_ADDRESS;
@@ -114,6 +122,30 @@ function isEmail(s) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s);
 }
 
+function computeTotals(d) {
+  const count = Array.isArray(d.participants) ? d.participants.length : 0;
+  const price = Number(d.training && d.training.pricePerParticipant) || 0;
+  const gross = count * price;
+
+  const normalizedCode = String(d.discountCode || '').trim().toUpperCase();
+  const discountRate = DISCOUNT_CODES[normalizedCode] || 0;
+  const discountAmount = Math.round(gross * discountRate);
+
+  const exVat = gross - discountAmount;
+  const vat = Math.round(exVat * 0.25);
+
+  return {
+    count,
+    gross,
+    discountCode: discountRate > 0 ? normalizedCode : '',
+    discountRate,
+    discountAmount,
+    exVat,
+    vat,
+    incVat: exVat + vat,
+  };
+}
+
 function escape(s) {
   if (s == null) return '';
   return String(s)
@@ -126,6 +158,26 @@ function escape(s) {
 
 function formatSek(n) {
   return new Intl.NumberFormat('sv-SE').format(n) + ' kr';
+}
+
+function priceSummaryHtml(d) {
+  const t = d.totals;
+  const base = `<p style="font-size:14px;margin:0;">${d.participants.length} × ${formatSek(d.training.pricePerParticipant)} = ${formatSek(t.gross)}</p>`;
+  const discount = t.discountAmount > 0
+    ? `<p style="font-size:14px;margin:4px 0 0;color:#0a7;">Rabatt (${escape(t.discountCode)}, −${Math.round(t.discountRate * 100)} %): −${formatSek(t.discountAmount)}</p>`
+    : '';
+  const total = `<p style="font-size:14px;margin:8px 0 0;"><strong>${formatSek(t.exVat)} ex moms</strong> (${formatSek(t.incVat)} inkl 25% moms)</p>`;
+  return base + discount + total;
+}
+
+function priceSummaryLines(d) {
+  const t = d.totals;
+  const lines = [`${d.participants.length} × ${formatSek(d.training.pricePerParticipant)} = ${formatSek(t.gross)}`];
+  if (t.discountAmount > 0) {
+    lines.push(`Rabatt (${t.discountCode}, -${Math.round(t.discountRate * 100)} %): -${formatSek(t.discountAmount)}`);
+  }
+  lines.push(`${formatSek(t.exVat)} ex moms (${formatSek(t.incVat)} inkl 25% moms)`);
+  return lines;
 }
 
 function buildAdminHtml(d) {
@@ -173,7 +225,7 @@ function buildAdminHtml(d) {
     ${d.notes ? `<h3 style="margin:24px 0 8px;">Övrig information</h3><p style="white-space:pre-wrap;">${escape(d.notes)}</p>` : ''}
 
     <h3 style="margin:24px 0 8px;">Sammanställning</h3>
-    <p style="font-size:14px;margin:0;">${d.participants.length} × ${formatSek(d.training.pricePerParticipant)} = <strong>${formatSek(d.totals.exVat)} ex moms</strong> (${formatSek(d.totals.incVat)} inkl 25% moms)</p>
+    ${priceSummaryHtml(d)}
   </body></html>`;
 }
 
@@ -201,11 +253,7 @@ function buildAdminPlainText(d) {
 
   if (d.notes) lines.push('', 'ÖVRIG INFORMATION', d.notes);
 
-  lines.push(
-    '',
-    'SAMMANSTÄLLNING',
-    `${d.participants.length} × ${formatSek(d.training.pricePerParticipant)} = ${formatSek(d.totals.exVat)} ex moms (${formatSek(d.totals.incVat)} inkl 25% moms)`,
-  );
+  lines.push('', 'SAMMANSTÄLLNING', ...priceSummaryLines(d));
 
   return lines.join('\n');
 }
@@ -225,7 +273,7 @@ function buildConfirmationHtml(d) {
     <ul style="margin:0;padding-left:20px;">${participantList}</ul>
 
     <h3 style="margin:24px 0 8px;">Pris</h3>
-    <p style="margin:0;">${d.participants.length} × ${formatSek(d.training.pricePerParticipant)} = <strong>${formatSek(d.totals.exVat)} ex moms</strong> (${formatSek(d.totals.incVat)} inkl 25% moms)</p>
+    ${priceSummaryHtml(d)}
 
     <h3 style="margin:24px 0 8px;">Praktisk information</h3>
     <p style="margin:0 0 8px;">Utbildningen genomförs live via <strong>Microsoft Teams</strong>. Möteslänk skickas till deltagarnas e-postadresser senast dagen innan utbildningen.</p>
@@ -251,7 +299,7 @@ function buildConfirmationPlainText(d) {
   lines.push(
     '',
     'PRIS',
-    `${d.participants.length} × ${formatSek(d.training.pricePerParticipant)} = ${formatSek(d.totals.exVat)} ex moms (${formatSek(d.totals.incVat)} inkl 25% moms)`,
+    ...priceSummaryLines(d),
     '',
     'PRAKTISK INFORMATION',
     'Utbildningen genomförs live via Microsoft Teams. Möteslänk skickas till deltagarnas e-postadresser senast dagen innan utbildningen.',

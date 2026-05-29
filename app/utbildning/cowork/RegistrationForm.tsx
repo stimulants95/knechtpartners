@@ -18,12 +18,18 @@ type FormState = {
   billingReference: string;
   billingEmail: string;
   purchaseOrder: string;
+  discountCode: string;
   contactName: string;
   contactEmail: string;
   contactPosition: string;
   participants: Participant[];
   notes: string;
   termsAccepted: boolean;
+};
+
+// Giltiga rabattkoder → rabattsats. Skiftlägesokänsligt (matchas mot versaler).
+const DISCOUNT_CODES: Record<string, number> = {
+  LON20: 0.2, // Nätverk för lönespecialister/konsulter
 };
 
 const emptyParticipant = (): Participant => ({
@@ -42,6 +48,7 @@ const initialState: FormState = {
   billingReference: '',
   billingEmail: '',
   purchaseOrder: '',
+  discountCode: '',
   contactName: '',
   contactEmail: '',
   contactPosition: '',
@@ -61,10 +68,26 @@ export const RegistrationForm: FC<{ pricePerParticipant: number }> = ({
 
   const totals = useMemo(() => {
     const count = state.participants.length;
-    const exVat = count * pricePerParticipant;
+    const gross = count * pricePerParticipant;
+    const normalizedCode = state.discountCode.trim().toUpperCase();
+    const discountRate = DISCOUNT_CODES[normalizedCode] ?? 0;
+    const discountAmount = Math.round(gross * discountRate);
+    const exVat = gross - discountAmount;
     const vat = Math.round(exVat * 0.25);
-    return { count, exVat, vat, incVat: exVat + vat };
-  }, [state.participants.length, pricePerParticipant]);
+    return {
+      count,
+      gross,
+      discountCode: discountRate > 0 ? normalizedCode : '',
+      discountRate,
+      discountAmount,
+      exVat,
+      vat,
+      incVat: exVat + vat,
+    };
+  }, [state.participants.length, state.discountCode, pricePerParticipant]);
+
+  const discountEntered = state.discountCode.trim().length > 0;
+  const discountValid = totals.discountRate > 0;
 
   function update<K extends keyof FormState>(key: K, value: FormState[K]) {
     setState((s) => ({ ...s, [key]: value }));
@@ -352,8 +375,25 @@ export const RegistrationForm: FC<{ pricePerParticipant: number }> = ({
         </Field>
       </Fieldset>
 
-      <div className="p-6 rounded-2xl bg-gradient-to-br from-white/[0.03] to-accent-glow/[0.04] border border-white/10">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div className="p-6 rounded-2xl bg-gradient-to-br from-white/[0.03] to-accent-glow/[0.04] border border-white/10 space-y-5">
+        <Field label="Rabattkod" hint="Valfritt">
+          <input
+            type="text"
+            value={state.discountCode}
+            onChange={(e) => update('discountCode', e.target.value)}
+            placeholder="Ange kod"
+            className={`${inputClass} uppercase placeholder:normal-case`}
+          />
+          {discountEntered && (
+            <p className={`mt-1.5 text-xs ${discountValid ? 'text-accent-glow' : 'text-white/40'}`}>
+              {discountValid
+                ? `${Math.round(totals.discountRate * 100)} % rabatt tillämpad.`
+                : 'Ogiltig rabattkod.'}
+            </p>
+          )}
+        </Field>
+
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pt-1">
           <div>
             <div className="text-xs uppercase tracking-wider text-accent-glow mb-1">
               Sammanställning
@@ -362,8 +402,19 @@ export const RegistrationForm: FC<{ pricePerParticipant: number }> = ({
               {totals.count} {totals.count === 1 ? 'deltagare' : 'deltagare'} ×{' '}
               {pricePerParticipant.toLocaleString('sv-SE')} kr
             </div>
+            {discountValid && (
+              <div className="text-accent-glow text-sm mt-0.5">
+                Rabatt ({totals.discountCode}, −{Math.round(totals.discountRate * 100)} %): −
+                {totals.discountAmount.toLocaleString('sv-SE')} kr
+              </div>
+            )}
           </div>
           <div className="text-right">
+            {discountValid && (
+              <div className="text-white/40 text-sm line-through">
+                {totals.gross.toLocaleString('sv-SE')} kr
+              </div>
+            )}
             <div className="text-white text-2xl font-serif">
               {totals.exVat.toLocaleString('sv-SE')} kr
             </div>
