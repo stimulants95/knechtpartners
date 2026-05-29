@@ -3,7 +3,9 @@
     "allow": [
       "Bash(npm run dev:*)",
       "Bash(npm run *)",
-      "Bash(start http://localhost:3001)"
+      "Bash(start http://localhost:3001)",
+      "Bash(git commit -m 'Uppdatera fakturatext och ändra rubrik till Agenda *)",
+      "Bash(git commit -m 'Gör organisationsnummer frivilligt vid anmälan *)"
     ]
   }
 }

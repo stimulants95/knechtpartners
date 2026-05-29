@@ -72,7 +72,6 @@ function validate(d) {
 
   const required = [
     ['companyName', 'Företagsnamn'],
-    ['orgNumber', 'Organisationsnummer'],
     ['billingAddress', 'Faktureringsadress'],
     ['billingZip', 'Postnummer'],
     ['billingCity', 'Ort'],
@@ -151,7 +150,7 @@ function buildAdminHtml(d) {
     <h3 style="margin:24px 0 8px;">Organisation</h3>
     <table style="border-collapse:collapse;width:100%;font-size:14px;">
       <tr><td style="padding:4px 0;color:#666;width:200px;">Företag</td><td>${escape(d.companyName)}</td></tr>
-      <tr><td style="padding:4px 0;color:#666;">Org.nr</td><td>${escape(d.orgNumber)}</td></tr>
+      ${d.orgNumber ? `<tr><td style="padding:4px 0;color:#666;">Org.nr</td><td>${escape(d.orgNumber)}</td></tr>` : ''}
       <tr><td style="padding:4px 0;color:#666;">Faktureringsadress</td><td>${escape(d.billingAddress)}, ${escape(d.billingZip)} ${escape(d.billingCity)}</td></tr>
       <tr><td style="padding:4px 0;color:#666;">Fakturareferens</td><td>${escape(d.billingReference)}</td></tr>
       <tr><td style="padding:4px 0;color:#666;">E-post faktura</td><td>${escape(d.billingEmail)}</td></tr>
@@ -185,7 +184,7 @@ function buildAdminPlainText(d) {
     '',
     'ORGANISATION',
     `Företag: ${d.companyName}`,
-    `Org.nr: ${d.orgNumber}`,
+    ...(d.orgNumber ? [`Org.nr: ${d.orgNumber}`] : []),
     `Faktureringsadress: ${d.billingAddress}, ${d.billingZip} ${d.billingCity}`,
     `Fakturareferens: ${d.billingReference}`,
     `E-post faktura: ${d.billingEmail}`,

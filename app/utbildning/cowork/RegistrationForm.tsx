@@ -166,10 +166,9 @@ export const RegistrationForm: FC<{ pricePerParticipant: number }> = ({
             className={inputClass}
           />
         </Field>
-        <Field label="Organisationsnummer" required hint="Endast siffror">
+        <Field label="Organisationsnummer" hint="Endast siffror (frivilligt)">
           <input
             type="text"
-            required
             inputMode="numeric"
             pattern="[0-9\-]{10,13}"
             value={state.orgNumber}
