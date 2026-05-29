@@ -342,7 +342,7 @@ export const RegistrationForm: FC<{ pricePerParticipant: number }> = ({
       </Fieldset>
 
       <Fieldset legend="Övrig information">
-        <Field label="Frågor eller annat vi bör veta" hint="Valfritt">
+        <Field label="Frågor eller annat jag bör veta" hint="Valfritt">
           <textarea
             rows={4}
             value={state.notes}

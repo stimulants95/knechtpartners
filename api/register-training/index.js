@@ -59,7 +59,7 @@ module.exports = async function (context, req) {
     context.log.error('Failed to send registration email', err);
     context.res = {
       status: 502,
-      body: { error: 'Kunde inte skicka bekräftelsen. Försök igen eller kontakta oss direkt.' },
+      body: { error: 'Kunde inte skicka bekräftelsen. Försök igen eller kontakta mig direkt.' },
     };
     return;
   }
@@ -219,7 +219,7 @@ function buildConfirmationHtml(d) {
   <!doctype html>
   <html><body style="font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:#1a1a1a;max-width:640px;margin:0 auto;padding:24px;line-height:1.55;">
     <h2 style="margin:0 0 8px;">Tack för din anmälan!</h2>
-    <p style="color:#444;">Vi har tagit emot din anmälan till <strong>${escape(d.training.name)}</strong> den ${escape(d.training.date)} kl ${escape(d.training.time)}.</p>
+    <p style="color:#444;">Jag har tagit emot din anmälan till <strong>${escape(d.training.name)}</strong> den ${escape(d.training.date)} kl ${escape(d.training.time)}.</p>
 
     <h3 style="margin:24px 0 8px;">Anmälda deltagare</h3>
     <ul style="margin:0;padding-left:20px;">${participantList}</ul>
@@ -243,7 +243,7 @@ function buildConfirmationPlainText(d) {
   const lines = [
     'Tack för din anmälan!',
     '',
-    `Vi har tagit emot din anmälan till ${d.training.name} den ${d.training.date} kl ${d.training.time}.`,
+    `Jag har tagit emot din anmälan till ${d.training.name} den ${d.training.date} kl ${d.training.time}.`,
     '',
     'ANMÄLDA DELTAGARE',
   ];

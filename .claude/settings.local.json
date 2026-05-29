@@ -5,7 +5,8 @@
       "Bash(npm run *)",
       "Bash(start http://localhost:3001)",
       "Bash(git commit -m 'Uppdatera fakturatext och ändra rubrik till Agenda *)",
-      "Bash(git commit -m 'Gör organisationsnummer frivilligt vid anmälan *)"
+      "Bash(git commit -m 'Gör organisationsnummer frivilligt vid anmälan *)",
+      "Bash(git commit -m 'Byt till jag-form på Cowork-utbildningssidan *)"
     ]
   }
 }

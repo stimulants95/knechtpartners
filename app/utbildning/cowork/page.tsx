@@ -116,18 +116,18 @@ export default function CoworkTrainingPage() {
                 betalningsvillkor. Moms tillkommer.
               </Block>
               <Block title="Av-/ombokning">
-                Vid förhinder kontakta oss skriftligt på{' '}
+                Vid förhinder kontakta mig skriftligt på{' '}
                 <a className="text-accent-glow hover:text-accent-glow-alt" href="mailto:josef.knecht@knecht-partners.se">
                   josef.knecht@knecht-partners.se
                 </a>
                 . Vid avbokning senare än 1 vecka innan startdatum faktureras hela avgiften. Platsen
-                kan överlåtas kostnadsfritt till en kollega — meddela oss skriftligt. Avgiften
+                kan överlåtas kostnadsfritt till en kollega — meddela mig skriftligt. Avgiften
                 återbetalas vid egen sjukdom mot uppvisande av läkarintyg.
               </Block>
               <Block title="Förbehåll">
                 Knecht &amp; Partners AB förbehåller sig rätten att ställa in eller flytta
-                utbildningen vid för få bokningar eller andra omständigheter utanför vår kontroll.
-                Inställning sker senast 7 dagar innan startdatum och anmälda deltagare kontaktas. Vi
+                utbildningen vid för få bokningar eller andra omständigheter utanför min kontroll.
+                Inställning sker senast 7 dagar innan startdatum och anmälda deltagare kontaktas. Jag
                 står inte för kostnader som uppstår för deltagare i samband med inställd eller
                 flyttad utbildning. Material får inte delas vidare.
               </Block>
@@ -165,18 +165,18 @@ function Block({ title, children }: { title: string; children: React.ReactNode }
 const takeaways = [
   {
     title: 'Cowork vs Copilot — och vägen hit',
-    body: 'Snabb tillbakablick på AI-utvecklingen och var vi står idag. Vi reder ut skillnaden mellan Copilot och Cowork.',
+    body: 'Snabb tillbakablick på AI-utvecklingen och var vi står idag. Jag reder ut skillnaden mellan Copilot och Cowork.',
   },
   {
-    title: 'Vi bygger skills live',
-    body: 'Du får se hela flödet steg för steg: hur du aktiverar en skill, var du sparar den, och hur vi testar den direkt mot utbildningsmaterialet — allt live på skärmen.',
+    title: 'Jag bygger skills live',
+    body: 'Du får se hela flödet steg för steg: hur du aktiverar en skill, var du sparar den, och hur jag testar den direkt mot utbildningsmaterialet — allt live på skärmen.',
   },
   {
     title: 'Schemalagda jobb',
-    body: 'Cowork tillåter bara ett schemalagt jobb i taget. Vi går igenom hur du packar flera flöden i samma jobb och får ut maximal nytta av begränsningen.',
+    body: 'Cowork tillåter bara ett schemalagt jobb i taget. Jag går igenom hur du packar flera flöden i samma jobb och får ut maximal nytta av begränsningen.',
   },
   {
     title: 'Frågor',
-    body: 'Vi avslutar med en öppen frågestund där du får svar på dina specifika frågor om Cowork.',
+    body: 'Jag avslutar med en öppen frågestund där du får svar på dina specifika frågor om Cowork.',
   },
 ];
