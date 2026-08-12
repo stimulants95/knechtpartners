@@ -4,7 +4,7 @@ Backend för knecht-partners.se. Körs som "managed functions" via Azure Static 
 
 ## Endpoints
 
-- `POST /api/register-training` — tar emot anmälningar från `/utbildning/cowork` och skickar mail via Azure Communication Services Email.
+Inga aktiva endpoints just nu. (Tidigare fanns `POST /api/register-training` för anmälningar till Cowork-utbildningen — borttagen när utbildningen avslutades, finns kvar i git-historiken.)
 
 ## Setup i Azure-portalen
 
