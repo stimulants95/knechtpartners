@@ -10,13 +10,6 @@ type Project = {
 
 const projects: Project[] = [
   {
-    name: 'puckhr.se',
-    description: 'HR-plattform med AI-integration.',
-    url: 'https://puckhr.se',
-    status: 'Under utveckling',
-    features: ['Arbetsrätt', 'HR-stöd', 'AI-plattform']
-  },
-  {
     name: 'Idrottsservice Västerbotten AB',
     description: 'Hjälper till att optimera arbetsflöden i samband med att en medarbetare går i pension för att säkra upp flödet. Övergång från Excel till deras ERP-system Blikk.',
     url: 'https://idrottsservice.com/',
@@ -27,6 +20,13 @@ const projects: Project[] = [
     description: 'Föreläser om Microsoft Copilot och Cowork samt hjälper företag att komma igång med Cowork i sin verksamhet.',
     url: '#contact',
     features: ['Föreläsning', 'Copilot', 'Cowork']
+  },
+  {
+    name: 'Cowork för lönekonsult — Intly',
+    description: 'Håller utbildningen "Cowork för lönekonsult" via utbildningsplattformen Intly — kom igång med AI i lönearbetet med hjälp av Microsoft Cowork.',
+    url: 'https://www.intly.se/education-courses/cowork-for-lonekonsult/',
+    status: 'Pågående',
+    features: ['Utbildning', 'Lön', 'AI / Cowork']
   }
 ];
 
