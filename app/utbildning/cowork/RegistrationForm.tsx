@@ -1,6 +1,7 @@
 'use client';
 
 import { FC, useMemo, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 type Participant = {
   firstName: string;
@@ -57,7 +58,7 @@ const initialState: FormState = {
   termsAccepted: false,
 };
 
-type Status = 'idle' | 'submitting' | 'success' | 'error';
+type Status = 'idle' | 'submitting' | 'error';
 
 export const RegistrationForm: FC<{ pricePerParticipant: number }> = ({
   pricePerParticipant,
@@ -65,6 +66,7 @@ export const RegistrationForm: FC<{ pricePerParticipant: number }> = ({
   const [state, setState] = useState<FormState>(initialState);
   const [status, setStatus] = useState<Status>('idle');
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const router = useRouter();
 
   const totals = useMemo(() => {
     const count = state.participants.length;
@@ -145,36 +147,13 @@ export const RegistrationForm: FC<{ pricePerParticipant: number }> = ({
         throw new Error(body?.error || `Något gick fel (${res.status}).`);
       }
 
-      setStatus('success');
-      setState(initialState);
-      window.scrollTo({ top: document.getElementById('anmalan')?.offsetTop ?? 0, behavior: 'smooth' });
+      router.push('/utbildning/cowork/tack');
     } catch (err) {
       setStatus('error');
       setErrorMessage(
         err instanceof Error ? err.message : 'Det gick inte att skicka anmälan just nu.',
       );
     }
-  }
-
-  if (status === 'success') {
-    return (
-      <div className="p-10 rounded-2xl bg-accent-glow/5 border border-accent-glow/30">
-        <h3 className="text-2xl font-serif text-white mb-3">Tack för din anmälan!</h3>
-        <p className="text-white/70 mb-2">
-          Vi ses fredagen den 30 oktober kl 08:30 — Teams-länken skickas till deltagarnas e-post senast dagen innan.
-        </p>
-        <p className="text-white/70 mb-4">
-          En bekräftelse är på väg till kontaktpersonens e-postadress.
-        </p>
-        <p className="text-white/55 text-sm">
-          Faktura skickas efter utförd utbildning, samma månad. Vid frågor — hör av dig till{' '}
-          <a className="text-accent-glow hover:text-accent-glow-alt" href="mailto:josef.knecht@knecht-partners.se">
-            josef.knecht@knecht-partners.se
-          </a>
-          .
-        </p>
-      </div>
-    );
   }
 
   return (

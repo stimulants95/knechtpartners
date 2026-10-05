@@ -1,0 +1,21 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Knecht & Partners AB//Utbildning//SV
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:cowork-2026-10-30@knecht-partners.se
+DTSTAMP:20261005T000000Z
+DTSTART:20261030T073000Z
+DTEND:20261030T100000Z
+SUMMARY:Kom igång med AI i lönearbetet (Microsoft Cowork)
+DESCRIPTION:Live-utbildning via Microsoft Teams. Teams-länken skickas till din e-post senast dagen innan. Frågor: josef.knecht@knecht-partners.se
+LOCATION:Microsoft Teams
+ORGANIZER;CN=Josef Knecht:mailto:josef.knecht@knecht-partners.se
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:Utbildningen börjar om 30 minuter
+END:VALARM
+END:VEVENT
+END:VCALENDAR
