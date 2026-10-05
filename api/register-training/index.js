@@ -2,6 +2,15 @@ const { EmailClient } = require('@azure/communication-email');
 
 const POLLER_OPTIONS = { abortSignal: undefined, updateIntervalInMs: 2000 };
 
+// Azure-hanterad avsändardomän i comm-service-knecht-partners. Kan överstyras med EMAIL_SENDER_ADDRESS.
+const DEFAULT_SENDER_ADDRESS = 'donotreply@17898e99-08ce-450d-bd28-023b744f9c06.azurecomm.net';
+const DEFAULT_RECIPIENT_ADDRESS = 'josef.knecht@knecht-partners.se';
+
+const GENERIC_ERROR =
+  'Det gick inte att skicka anmälan just nu. Försök igen om en stund eller mejla josef.knecht@knecht-partners.se.';
+const THROTTLED_ERROR =
+  'Det har kommit in många anmälningar på kort tid. Vänta några minuter och försök igen, eller mejla josef.knecht@knecht-partners.se.';
+
 // Giltiga rabattkoder → rabattsats. Skiftlägesokänsligt (matchas mot versaler).
 const DISCOUNT_CODES = {
   LON20: 0.2, // Nätverk för lönespecialister/konsulter
@@ -20,15 +29,12 @@ module.exports = async function (context, req) {
   data.totals = computeTotals(data);
 
   const connectionString = process.env.COMMUNICATION_SERVICES_CONNECTION_STRING;
-  const senderAddress = process.env.SENDER_EMAIL_ADDRESS;
-  const recipientAddress = process.env.RECIPIENT_EMAIL_ADDRESS;
+  const senderAddress = process.env.EMAIL_SENDER_ADDRESS || DEFAULT_SENDER_ADDRESS;
+  const recipientAddress = process.env.RECIPIENT_EMAIL_ADDRESS || DEFAULT_RECIPIENT_ADDRESS;
 
-  if (!connectionString || !senderAddress || !recipientAddress) {
-    context.log.error('Missing required environment variables.');
-    context.res = {
-      status: 500,
-      body: { error: 'E-postservern är inte konfigurerad. Försök igen senare.' },
-    };
+  if (!connectionString) {
+    context.log.error('[register-training] COMMUNICATION_SERVICES_CONNECTION_STRING saknas i Application settings.');
+    context.res = { status: 500, body: { error: GENERIC_ERROR } };
     return;
   }
 

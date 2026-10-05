@@ -4,7 +4,7 @@
     "FUNCTIONS_WORKER_RUNTIME": "node",
     "AzureWebJobsStorage": "",
     "COMMUNICATION_SERVICES_CONNECTION_STRING": "endpoint=https://<your-acs-resource>.communication.azure.com/;accesskey=<key>",
-    "SENDER_EMAIL_ADDRESS": "DoNotReply@<your-subdomain>.azurecomm.net",
+    "EMAIL_SENDER_ADDRESS": "donotreply@17898e99-08ce-450d-bd28-023b744f9c06.azurecomm.net",
     "RECIPIENT_EMAIL_ADDRESS": "josef.knecht@knecht-partners.se"
   },
   "Host": {

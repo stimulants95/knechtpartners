@@ -141,8 +141,8 @@ export const RegistrationForm: FC<{ pricePerParticipant: number }> = ({
       });
 
       if (!res.ok) {
-        const text = await res.text().catch(() => '');
-        throw new Error(text || `Något gick fel (${res.status}).`);
+        const body = await res.json().catch(() => null);
+        throw new Error(body?.error || `Något gick fel (${res.status}).`);
       }
 
       setStatus('success');

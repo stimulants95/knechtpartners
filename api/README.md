@@ -8,33 +8,25 @@ Backend för knecht-partners.se. Körs som "managed functions" via Azure Static 
 
 ## Setup i Azure-portalen
 
-### 1. Lägg till en Azure-subdomän i ditt Email Communication Service
+Mejl skickas via Communication Services-resursen `comm-service-knecht-partners` (resursgrupp `Knecht-Partners`) med en Azure-hanterad avsändardomän.
 
-I `email-service-smarthrai` → **1-click add** på "Add a free Azure subdomain". Du får en avsändaradress i stil med `DoNotReply@<random>.azurecomm.net`.
+Avsändare: `donotreply@17898e99-08ce-450d-bd28-023b744f9c06.azurecomm.net` (inbyggd fallback i koden).
 
-### 2. Skapa en Communication Services-resurs (om du inte har en)
+### Miljövariabler i Static Web App
 
-I Azure-portalen → **Create resource** → sök "Communication Services" → skapa i samma resursgrupp (`rg-admin-4143`).
+I din Static Web App (`kind-tree-...`) → **Configuration** → **Application settings**:
 
-### 3. Koppla emailservice till Communication Services
+| Namn | Krävs | Värde |
+| --- | --- | --- |
+| `COMMUNICATION_SERVICES_CONNECTION_STRING` | Ja | Connection string från `comm-service-knecht-partners` → **Keys**. Läses bara via `process.env`, skriv aldrig ut den. |
+| `EMAIL_SENDER_ADDRESS` | Nej | Överstyr avsändaradressen ovan. |
+| `RECIPIENT_EMAIL_ADDRESS` | Nej | Mottagare av anmälningar. Standard: `josef.knecht@knecht-partners.se`. |
 
-I din Communication Services-resurs → **Email** → **Domains** → **Connect domain** → välj din `email-service-smarthrai`-domän.
+Klicka **Save**. Static Web Apps läser dessa direkt — ingen omstart behövs. Den gamla variabeln `SENDER_EMAIL_ADDRESS` används inte längre och kan tas bort.
 
-### 4. Hämta connection string
+### Kvot
 
-I Communication Services-resursen → **Keys** → kopiera "Connection string" (Primary key).
-
-### 5. Sätt miljövariabler i Static Web App
-
-I din Static Web App (`kind-tree-...`) → **Configuration** → **Application settings** → lägg till tre värden:
-
-| Namn | Värde |
-| --- | --- |
-| `COMMUNICATION_SERVICES_CONNECTION_STRING` | (connection string från steg 4) |
-| `SENDER_EMAIL_ADDRESS` | `DoNotReply@<din-subdomän>.azurecomm.net` |
-| `RECIPIENT_EMAIL_ADDRESS` | `josef.knecht@knecht-partners.se` |
-
-Klicka **Save**. Static Web Apps läser dessa direkt — ingen omstart behövs.
+Den Azure-hanterade domänen tillåter 5 mejl/minut och 10 mejl/timme. Varje anmälan skickar två mejl (till mig + bekräftelse), alltså max 5 anmälningar per timme.
 
 ## Lokal utveckling (valfritt)
 
@@ -46,6 +38,7 @@ Klicka **Save**. Static Web Apps läser dessa direkt — ingen omstart behövs.
 
 ## Felsökning
 
-- **"E-postservern är inte konfigurerad"** i frontend → någon av de tre env-variablerna saknas i SWA.
-- **502 från API** → kolla loggarna i Static Web App → **Functions** → **Application Insights** för utgående email-fel (oftast: domänen är inte godkänd som avsändare i ACS).
+- **500 från API** → `COMMUNICATION_SERVICES_CONNECTION_STRING` saknas i SWA. Loggas som `[register-training] ... saknas`.
+- **502 från API** → kolla loggarna i Static Web App → **Functions** → **Application Insights** för utgående email-fel (oftast: domänen är inte kopplad till resursen, eller connection string hör till en raderad resurs).
+- **429 / TooManyRequests** → kvoten (5/minut, 10/timme) är nådd.
 - Email Communication Service kan ta några minuter på sig efter "Connect domain" innan det börjar fungera.
