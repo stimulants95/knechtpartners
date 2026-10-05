@@ -5,7 +5,7 @@ import { RegistrationForm } from './RegistrationForm';
 export const metadata: Metadata = {
   title: 'Kom igång med AI i lönearbetet — Utbildning | Knecht & Partners AB',
   description:
-    'Live-utbildning via Microsoft Teams den 30 oktober 2026, 08:30–11:00 (paus 10:00–10:15). För dig som jobbar med lön och vill börja använda AI med Microsoft Cowork. 900 kr ex moms per deltagare.',
+    'Live-utbildning via Microsoft Teams den 30 oktober 2026, 08:30–11:00. För dig som jobbar med lön och vill börja använda AI med Microsoft Cowork. 900 kr ex moms per deltagare.',
   robots: { index: false, follow: false },
 };
 
@@ -45,7 +45,6 @@ export default function CoworkTrainingPage() {
               <InfoCard
                 label="Tid"
                 value="08:30 – 11:00"
-                suffix="paus 10:00–10:15"
               />
             </div>
 

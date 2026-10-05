@@ -132,7 +132,7 @@ export const RegistrationForm: FC<{ pricePerParticipant: number }> = ({
           training: {
             name: 'Kom igång med Microsoft Cowork',
             date: '2026-10-30',
-            time: '08:30–11:00 (paus 10:00–10:15)',
+            time: '08:30–11:00',
             pricePerParticipant,
           },
           ...state,
